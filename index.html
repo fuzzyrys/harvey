@@ -3,41 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>HARVEY — Lyrics</title>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
     width:100%;
     height:100%;
     overflow:hidden;
+
     background:#050505;
-    color:#fff;
-    font-family:Arial, Helvetica, sans-serif;
+    color:white;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 button{
-    border:0;
-    outline:0;
+    border:none;
+    outline:none;
     background:none;
-    color:#fff;
+    color:white;
     cursor:pointer;
 }
 
-/* ================= BACKGROUND ================= */
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
 
 .bg{
     position:fixed;
+
     inset:-80px;
 
-    background:url("cover.jpg") center/cover no-repeat;
+    background:
+        url("cover.jpg")
+        center/
+        cover
+        no-repeat;
 
     filter:blur(70px);
+
     transform:scale(1.15);
 
     opacity:.13;
@@ -47,16 +68,24 @@ button{
 
 .bg::after{
     content:"";
+
     position:absolute;
+
     inset:0;
+
     background:#000;
-    opacity:.78;
+
+    opacity:.8;
 }
 
-/* ================= TOP ================= */
+
+/* =====================================================
+   TOP BAR
+===================================================== */
 
 .topbar{
     position:fixed;
+
     top:0;
     left:0;
     right:0;
@@ -66,6 +95,7 @@ button{
     padding:0 35px;
 
     display:flex;
+
     align-items:center;
 
     gap:9px;
@@ -79,10 +109,14 @@ button{
 
 .topbar span{
     color:#555;
+
     font-size:12px;
 }
 
-/* ================= MAIN ================= */
+
+/* =====================================================
+   MAIN
+===================================================== */
 
 .main{
     position:fixed;
@@ -96,7 +130,9 @@ button{
 
     display:grid;
 
-    grid-template-columns:430px minmax(400px,720px);
+    grid-template-columns:
+        430px
+        minmax(400px,720px);
 
     column-gap:90px;
 
@@ -105,10 +141,14 @@ button{
     overflow:hidden;
 }
 
-/* ================= LEFT ================= */
+
+/* =====================================================
+   LEFT / COVER
+===================================================== */
 
 .left{
     width:430px;
+
     align-self:center;
 }
 
@@ -116,12 +156,17 @@ button{
     width:430px;
     height:390px;
 
-    background:url("cover.jpg") center/cover no-repeat;
+    background:
+        url("cover.jpg")
+        center/
+        cover
+        no-repeat;
 
     border-radius:3px;
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,.7);
+        0 25px 70px
+        rgba(0,0,0,.7);
 
     transition:
         transform .3s ease,
@@ -130,9 +175,16 @@ button{
 
 .cover.playing{
     transform:scale(1.008);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.8);
 }
 
-/* ================= SONG INFO ================= */
+
+/* =====================================================
+   SONG INFO
+===================================================== */
 
 .song-info{
     width:430px;
@@ -140,12 +192,15 @@ button{
     margin-top:14px;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 }
 
 .song-title{
     font-size:22px;
+
     font-weight:700;
 }
 
@@ -159,10 +214,14 @@ button{
 
 .more{
     color:#777;
+
     font-size:15px;
 }
 
-/* ================= LYRICS ================= */
+
+/* =====================================================
+   LYRICS CONTAINER
+===================================================== */
 
 .lyrics-box{
     width:100%;
@@ -174,6 +233,10 @@ button{
     scrollbar-width:none;
 
     scroll-behavior:smooth;
+
+    /*
+       Fade bagian atas dan bawah
+    */
 
     mask-image:
         linear-gradient(
@@ -189,15 +252,21 @@ button{
     display:none;
 }
 
+
+/* =====================================================
+   LYRICS
+===================================================== */
+
 .lyrics{
-    padding-top:42%;
-    padding-bottom:42%;
+    padding-top:35%;
+    padding-bottom:35%;
 }
 
 .line{
     padding:7px 0;
 
     font-size:18px;
+
     line-height:1.45;
 
     font-weight:700;
@@ -223,10 +292,14 @@ button{
     transform:translateX(2px);
 
     text-shadow:
-        0 0 25px rgba(255,255,255,.08);
+        0 0 25px
+        rgba(255,255,255,.08);
 }
 
-/* ================= PLAYER ================= */
+
+/* =====================================================
+   PLAYER
+===================================================== */
 
 .player{
     position:fixed;
@@ -237,18 +310,24 @@ button{
 
     height:96px;
 
-    background:rgba(5,5,5,.97);
+    background:
+        rgba(5,5,5,.97);
 
     border-top:
-        1px solid rgba(255,255,255,.08);
+        1px solid
+        rgba(255,255,255,.08);
 
     backdrop-filter:blur(20px);
+
     -webkit-backdrop-filter:blur(20px);
 
     z-index:999999;
 }
 
-/* ================= PLAYER INFO ================= */
+
+/* =====================================================
+   PLAYER INFO
+===================================================== */
 
 .player-info{
     position:absolute;
@@ -263,6 +342,7 @@ button{
 
 .player-name{
     font-size:12px;
+
     font-weight:700;
 }
 
@@ -274,7 +354,10 @@ button{
     color:#666;
 }
 
-/* ================= CONTROLS ================= */
+
+/* =====================================================
+   CONTROLS
+===================================================== */
 
 .controls{
     position:absolute;
@@ -282,11 +365,13 @@ button{
     left:50%;
     top:50%;
 
-    transform:translate(-50%,-50%);
+    transform:
+        translate(-50%,-50%);
 
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
     gap:32px;
@@ -299,6 +384,7 @@ button{
     height:34px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -319,12 +405,10 @@ button{
     transform:scale(.82);
 }
 
-/* ================= PLAY BUTTON ================= */
 
-/*
-   UKURAN NORMAL
-   bukan 56px lagi
-*/
+/* =====================================================
+   PLAY BUTTON
+===================================================== */
 
 #play{
     width:44px;
@@ -340,14 +424,17 @@ button{
     color:#000;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     font-size:13px;
+
     font-weight:bold;
 
     box-shadow:
-        0 5px 20px rgba(0,0,0,.45);
+        0 5px 20px
+        rgba(0,0,0,.45);
 
     transition:
         transform .18s ease,
@@ -358,14 +445,18 @@ button{
     transform:scale(1.06);
 
     box-shadow:
-        0 7px 25px rgba(255,255,255,.12);
+        0 7px 25px
+        rgba(255,255,255,.12);
 }
 
 #play:active{
     transform:scale(.91);
 }
 
-/* ================= PROGRESS ================= */
+
+/* =====================================================
+   PROGRESS
+===================================================== */
 
 .progress-row{
     position:absolute;
@@ -373,13 +464,15 @@ button{
     left:50%;
     bottom:9px;
 
-    transform:translateX(-50%);
+    transform:
+        translateX(-50%);
 
     width:min(650px,55vw);
 
     height:12px;
 
     display:flex;
+
     align-items:center;
 
     gap:8px;
@@ -405,16 +498,24 @@ button{
 
 .bar{
     width:0%;
+
     height:100%;
 
     background:#fff;
 
     border-radius:20px;
+
+    transition:
+        width .05s linear;
 }
 
-/* ================= TABLET ================= */
 
-@media(min-width:800px) and (max-width:1100px){
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(min-width:800px)
+and (max-width:1100px){
 
     .main{
         padding:20px 35px;
@@ -448,7 +549,10 @@ button{
     }
 }
 
-/* ================= MOBILE ================= */
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:799px){
 
@@ -456,6 +560,9 @@ button{
     body{
         height:100dvh;
     }
+
+
+    /* TOP */
 
     .topbar{
         height:50px;
@@ -472,6 +579,7 @@ button{
     .topbar span{
         font-size:9px;
     }
+
 
     /* MAIN */
 
@@ -494,6 +602,9 @@ button{
         overflow:hidden;
     }
 
+
+    /* LEFT */
+
     .left{
         width:100%;
 
@@ -505,6 +616,7 @@ button{
 
         flex-shrink:0;
     }
+
 
     /* COVER */
 
@@ -519,7 +631,8 @@ button{
         min-height:155px;
     }
 
-    /* INFO */
+
+    /* SONG INFO */
 
     .song-info{
         width:100%;
@@ -533,10 +646,12 @@ button{
 
     .artist{
         margin-top:3px;
+
         font-size:10px;
     }
 
-    /* LYRICS */
+
+    /* LYRICS BOX */
 
     .lyrics-box{
         width:100%;
@@ -546,11 +661,20 @@ button{
         min-height:0;
 
         margin-top:9px;
+
+        /*
+           penting:
+           posisi aktif dihitung
+           berdasarkan viewport lyrics
+        */
     }
 
+
+    /* LYRICS */
+
     .lyrics{
-        padding-top:65px;
-        padding-bottom:100px;
+        padding-top:120px;
+        padding-bottom:120px;
     }
 
     .line{
@@ -565,6 +689,7 @@ button{
         font-size:17px;
     }
 
+
     /* PLAYER */
 
     .player{
@@ -572,8 +697,14 @@ button{
 
         padding:
             7px 14px
-            calc(7px + env(safe-area-inset-bottom));
+            calc(
+                7px +
+                env(safe-area-inset-bottom)
+            );
     }
+
+
+    /* PLAYER INFO */
 
     .player-info{
         position:static;
@@ -586,6 +717,7 @@ button{
         display:flex;
 
         align-items:center;
+
         justify-content:space-between;
     }
 
@@ -595,8 +727,10 @@ button{
 
     .player-artist{
         margin-top:0;
+
         font-size:9px;
     }
+
 
     /* CONTROLS */
 
@@ -611,6 +745,7 @@ button{
         display:flex;
 
         align-items:center;
+
         justify-content:center;
 
         gap:28px;
@@ -623,7 +758,8 @@ button{
         font-size:15px;
     }
 
-    /* PLAY HP */
+
+    /* PLAY MOBILE */
 
     #play{
         width:44px;
@@ -634,6 +770,7 @@ button{
 
         font-size:12px;
     }
+
 
     /* PROGRESS */
 
@@ -648,7 +785,10 @@ button{
     }
 }
 
-/* ================= SMALL PHONE ================= */
+
+/* =====================================================
+   SMALL PHONE
+===================================================== */
 
 @media(max-width:380px){
 
@@ -686,9 +826,13 @@ button{
     }
 }
 
-/* ================= SHORT PHONE ================= */
 
-@media(max-height:650px) and (max-width:799px){
+/* =====================================================
+   SHORT PHONE
+===================================================== */
+
+@media(max-height:650px)
+and (max-width:799px){
 
     .main{
         bottom:102px;
@@ -711,8 +855,14 @@ button{
         margin-top:5px;
     }
 
+    .lyrics{
+        padding-top:100px;
+        padding-bottom:100px;
+    }
+
     .line{
         padding:4px 0;
+
         font-size:12px;
     }
 
@@ -727,21 +877,37 @@ button{
 
 <body>
 
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
 <div class="bg"></div>
 
 
-<!-- ================= TOP ================= -->
+<!-- =====================================================
+     TOP
+===================================================== -->
 
 <header class="topbar">
+
     <strong>HARVEY</strong>
+
     <span>•</span>
+
     <span>Lyrics</span>
+
 </header>
 
 
-<!-- ================= MAIN ================= -->
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main class="main">
+
+
+    <!-- COVER -->
 
     <section class="left">
 
@@ -765,6 +931,7 @@ button{
 
             </div>
 
+
             <button class="more">
                 •••
             </button>
@@ -774,7 +941,8 @@ button{
     </section>
 
 
-    <!-- ================= LYRICS ================= -->
+
+    <!-- LYRICS -->
 
     <section
         class="lyrics-box"
@@ -790,7 +958,10 @@ button{
 </main>
 
 
-<!-- ================= PLAYER ================= -->
+
+<!-- =====================================================
+     PLAYER
+===================================================== -->
 
 <footer class="player">
 
@@ -812,6 +983,7 @@ button{
     </div>
 
 
+
     <div class="controls">
 
         <button id="previous">
@@ -829,6 +1001,7 @@ button{
         </button>
 
     </div>
+
 
 
     <div class="progress-row">
@@ -859,13 +1032,17 @@ button{
 </footer>
 
 
-<!-- ================= AUDIO ================= -->
+
+<!-- =====================================================
+     AUDIO
+===================================================== -->
 
 <audio
     id="audio"
     src="harvey.mp3"
     preload="metadata">
 </audio>
+
 
 
 <script>
@@ -1047,16 +1224,25 @@ function formatTime(time){
     if(!isFinite(time))
         return "0:00";
 
+
     const minutes =
         Math.floor(time / 60);
+
 
     let seconds =
         Math.floor(time % 60);
 
-    if(seconds < 10)
-        seconds = "0" + seconds;
+
+    if(seconds < 10){
+
+        seconds =
+            "0" + seconds;
+
+    }
+
 
     return minutes + ":" + seconds;
+
 }
 
 
@@ -1064,53 +1250,68 @@ function formatTime(time){
    PLAY / PAUSE
 ===================================================== */
 
-play.addEventListener("click",async()=>{
+play.addEventListener(
+    "click",
+    async()=>{
 
-    if(audio.paused){
+        if(audio.paused){
 
-        try{
+            try{
 
-            await audio.play();
+                await audio.play();
 
-        }catch(error){
+            }catch(error){
 
-            console.log(error);
+                console.log(error);
+
+            }
+
+        }else{
+
+            audio.pause();
 
         }
 
-    }else{
-
-        audio.pause();
-
     }
-
-});
+);
 
 
 /* =====================================================
    PLAY STATE
 ===================================================== */
 
-audio.addEventListener("play",()=>{
+audio.addEventListener(
+    "play",
+    ()=>{
 
-    play.textContent = "❚❚";
+        play.textContent =
+            "❚❚";
 
-    cover.classList.add("playing");
+        cover.classList.add(
+            "playing"
+        );
 
-});
+    }
+);
 
 
 /* =====================================================
    PAUSE STATE
 ===================================================== */
 
-audio.addEventListener("pause",()=>{
+audio.addEventListener(
+    "pause",
+    ()=>{
 
-    play.textContent = "▶";
+        play.textContent =
+            "▶";
 
-    cover.classList.remove("playing");
+        cover.classList.remove(
+            "playing"
+        );
 
-});
+    }
+);
 
 
 /* =====================================================
@@ -1151,14 +1352,19 @@ function updateLyrics(){
         return;
 
 
-    activeIndex = index;
+    activeIndex =
+        index;
 
 
-    lines.forEach(line=>{
+    lines.forEach(
+        line=>{
 
-        line.classList.remove("active");
+            line.classList.remove(
+                "active"
+            );
 
-    });
+        }
+    );
 
 
     if(index >= 0){
@@ -1166,22 +1372,60 @@ function updateLyrics(){
         const line =
             lines[index];
 
-        line.classList.add("active");
+
+        line.classList.add(
+            "active"
+        );
+
+
+        /*
+           FIX UTAMA:
+
+           Menggunakan posisi
+           aktual line terhadap
+           lyrics-box.
+
+           Jadi HP nggak
+           nge-scroll aktif
+           sampai hilang.
+        */
+
+        const boxRect =
+            lyricsBox.getBoundingClientRect();
+
+        const lineRect =
+            line.getBoundingClientRect();
 
 
         const target =
-            line.offsetTop
-            -
-            lyricsBox.clientHeight / 2
+            lyricsBox.scrollTop
             +
-            line.offsetHeight / 2;
+            (
+                lineRect.top -
+                boxRect.top
+            )
+            -
+            (
+                lyricsBox.clientHeight /
+                2
+            )
+            +
+            (
+                lineRect.height /
+                2
+            );
 
 
         lyricsBox.scrollTo({
 
-            top:Math.max(0,target),
+            top:
+                Math.max(
+                    0,
+                    target
+                ),
 
-            behavior:"smooth"
+            behavior:
+                "smooth"
 
         });
 
@@ -1194,35 +1438,40 @@ function updateLyrics(){
    TIME UPDATE
 ===================================================== */
 
-audio.addEventListener("timeupdate",()=>{
+audio.addEventListener(
+    "timeupdate",
+    ()=>{
 
-    current.textContent =
-        formatTime(
-            audio.currentTime
-        );
-
-
-    duration.textContent =
-        formatTime(
-            audio.duration
-        );
+        current.textContent =
+            formatTime(
+                audio.currentTime
+            );
 
 
-    if(audio.duration){
+        duration.textContent =
+            formatTime(
+                audio.duration
+            );
 
-        bar.style.width =
-            (
-                audio.currentTime /
-                audio.duration *
-                100
-            ) + "%";
+
+        if(audio.duration){
+
+            bar.style.width =
+                (
+                    audio.currentTime /
+                    audio.duration *
+                    100
+                )
+                +
+                "%";
+
+        }
+
+
+        updateLyrics();
 
     }
-
-
-    updateLyrics();
-
-});
+);
 
 
 /* =====================================================
@@ -1234,7 +1483,9 @@ audio.addEventListener(
     ()=>{
 
         duration.textContent =
-            formatTime(audio.duration);
+            formatTime(
+                audio.duration
+            );
 
     }
 );
@@ -1260,7 +1511,8 @@ progress.addEventListener(
             (
                 event.clientX -
                 rect.left
-            ) /
+            )
+            /
             rect.width;
 
 
@@ -1270,6 +1522,7 @@ progress.addEventListener(
 
 
         activeIndex = -1;
+
 
         updateLyrics();
 
@@ -1289,6 +1542,7 @@ previous.addEventListener(
 
         activeIndex = -1;
 
+
         lyricsBox.scrollTo({
 
             top:0,
@@ -1296,6 +1550,7 @@ previous.addEventListener(
             behavior:"smooth"
 
         });
+
 
         updateLyrics();
 
@@ -1344,7 +1599,9 @@ next.addEventListener(
             audio.currentTime =
                 timestamps[nextIndex];
 
+
             activeIndex = -1;
+
 
             updateLyrics();
 
@@ -1362,9 +1619,14 @@ audio.addEventListener(
     "ended",
     ()=>{
 
-        play.textContent = "▶";
+        play.textContent =
+            "▶";
 
-        cover.classList.remove("playing");
+
+        cover.classList.remove(
+            "playing"
+        );
+
 
         activeIndex = -1;
 
@@ -1373,7 +1635,7 @@ audio.addEventListener(
 
 
 /* =====================================================
-   SPACEBAR
+   SPACEBAR PLAY / PAUSE
 ===================================================== */
 
 document.addEventListener(
@@ -1381,8 +1643,10 @@ document.addEventListener(
     event=>{
 
         if(
-            event.code === "Space" &&
-            event.target.tagName !== "INPUT" &&
+            event.code === "Space"
+            &&
+            event.target.tagName !== "INPUT"
+            &&
             event.target.tagName !== "TEXTAREA"
         ){
 
