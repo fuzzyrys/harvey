@@ -474,30 +474,43 @@ button{
 
 
 /* =====================================================
-   PLAY BUTTON
+   PLAY BUTTON — BIGGER
 ===================================================== */
 
 #play{
-
-    width:44px;
-
-    height:44px;
+    width:56px;
+    height:56px;
 
     border-radius:50%;
 
-    background:white;
+    background:#fff;
+    color:#000;
 
-    color:black;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    font-size:12px;
-
+    font-size:16px;
     font-weight:bold;
 
     box-shadow:
-        0 5px 20px
-        rgba(0,0,0,.5);
+        0 6px 25px rgba(0,0,0,.45);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
 }
 
+#play:hover{
+    transform:scale(1.06);
+
+    box-shadow:
+        0 8px 30px rgba(255,255,255,.12);
+}
+
+#play:active{
+    transform:scale(.92);
+}
 
 /* =====================================================
    PROGRESS
@@ -820,31 +833,46 @@ and
     /* CONTROLS */
 
     .controls{
+    position:absolute;
 
-        position:static;
+    left:50%;
+    top:50%;
 
-        transform:none;
+    transform:translate(-50%,-50%);
 
-        width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-        height:45px;
+    gap:38px;
 
-        display:flex;
+    width:max-content;
+}
 
-        align-items:center;
+   .controls button:not(#play){
+    width:36px;
+    height:36px;
 
-        justify-content:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-        gap:28px;
-    }
+    color:#aaa;
 
-    .controls button{
+    font-size:17px;
 
-        width:34px;
+    transition:
+        color .15s ease,
+        transform .15s ease;
+}
 
-        height:34px;
-    }
+.controls button:not(#play):hover{
+    color:#fff;
+}
 
+.controls button:not(#play):active{
+    transform:scale(.8);
+}
     #play{
 
         width:42px;
