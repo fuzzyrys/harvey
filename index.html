@@ -2,751 +2,534 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
-
-<title>HARVEY</title>
+<title>HARVEY — Lyrics</title>
 
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-
-    background: #050505;
-    color: white;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#050505;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-button {
-    border: 0;
-    outline: 0;
-    font-family: inherit;
-    background: none;
-    color: white;
+body{
+    position:fixed;
+    inset:0;
 }
 
 
-/* =====================================================
+/* =========================
    BACKGROUND
-===================================================== */
+========================= */
 
-.background {
-    position: fixed;
+.bg{
+    position:fixed;
+    inset:-50px;
 
-    top: -70px;
-    left: -70px;
-    right: -70px;
-    bottom: -70px;
+    background:url("cover.jpg") center/cover no-repeat;
 
-    background:
-        url("cover.jpg")
-        center / cover
-        no-repeat;
+    filter:blur(55px);
+    transform:scale(1.15);
 
-    filter: blur(60px);
+    opacity:.22;
 
-    transform: scale(1.15);
-
-    opacity: .30;
-
-    z-index: 0;
+    z-index:-2;
 }
 
-.background::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background:
-        rgba(0,0,0,.45);
+.bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.72);
 }
 
 
-/* =====================================================
-   APP
-===================================================== */
+/* =========================
+   TOP BAR
+========================= */
 
-.app {
-    position: relative;
+.top{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
 
-    width: 100%;
-    height: 100dvh;
+    height:55px;
 
-    z-index: 2;
+    display:flex;
+    align-items:center;
+
+    padding:0 14px;
+
+    z-index:100;
+
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,.65),
+        transparent
+    );
+
+    font-size:11px;
+}
+
+.top b{
+    font-size:11px;
+    letter-spacing:.8px;
+}
+
+.top span{
+    margin-left:8px;
+    color:#777;
 }
 
 
-/* =====================================================
-   TOP
-===================================================== */
-
-.topbar {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-    right: 0;
-
-    height: 58px;
-
-    padding:
-        env(safe-area-inset-top)
-        18px
-        0
-        18px;
-
-    display: flex;
-    align-items: center;
-
-    z-index: 50;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.55),
-            transparent
-        );
-
-    color:
-        rgba(255,255,255,.5);
-
-    font-size: 13px;
-}
-
-.topbar strong {
-    color: white;
-
-    letter-spacing: 1px;
-}
-
-.dot {
-    margin: 0 8px;
-
-    color:
-        rgba(255,255,255,.25);
-}
-
-
-/* =====================================================
+/* =========================
    MAIN
-===================================================== */
+========================= */
 
-.main {
+.main{
+    position:fixed;
 
-    position: absolute;
-
-    top: 58px;
-    left: 0;
-    right: 0;
+    top:55px;
+    left:0;
+    right:0;
 
     /*
-       player = 118px
+      WAJIB kasih ruang untuk player
     */
+    bottom:112px;
 
-    bottom: 118px;
+    padding:12px 16px 0;
 
-    width: 100%;
+    overflow:hidden;
 
-    padding:
-        12px
-        18px
-        0;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    overflow: hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
 
-/* =====================================================
+/* =========================
    COVER
-===================================================== */
+========================= */
 
-.left {
+.cover{
+    width:62vw;
+    max-width:260px;
+    min-width:170px;
 
-    width: 100%;
+    aspect-ratio:1/1;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background:url("cover.jpg") center/cover no-repeat;
 
-    flex-shrink: 0;
-}
+    border-radius:2px;
 
-.cover {
-
-    width: min(70vw, 290px);
-
-    aspect-ratio: 1 / 1;
-
-    background:
-        url("cover.jpg")
-        center / cover
-        no-repeat;
-
-    border-radius: 4px;
+    flex-shrink:0;
 
     box-shadow:
-        0 25px 65px
-        rgba(0,0,0,.75);
+        0 20px 50px rgba(0,0,0,.75);
 
-    transition:
-        transform .45s ease,
-        box-shadow .45s ease;
+    transition:.4s ease;
 }
 
-.cover.playing {
-
-    transform: scale(1.015);
+.cover.playing{
+    transform:scale(1.015);
 
     box-shadow:
-        0 30px 75px
-        rgba(0,0,0,.85),
-        0 0 60px
-        rgba(255,255,255,.04);
+        0 20px 55px rgba(0,0,0,.85),
+        0 0 40px rgba(255,255,255,.05);
 }
 
 
-/* =====================================================
+/* =========================
    SONG INFO
-===================================================== */
+========================= */
 
-.song-info {
+.info{
+    width:100%;
+    max-width:500px;
 
-    width: 100%;
+    margin-top:12px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-    margin-top: 15px;
+    flex-shrink:0;
 }
 
-.song-title {
-
-    font-size: 21px;
-
-    font-weight: 750;
-
-    letter-spacing: .3px;
+.title{
+    font-size:17px;
+    font-weight:700;
+    letter-spacing:.7px;
 }
 
-.artist {
-
-    margin-top: 4px;
-
-    font-size: 13px;
-
-    color:
-        rgba(255,255,255,.48);
+.artist{
+    margin-top:4px;
+    font-size:10px;
+    color:#777;
 }
 
-.more {
-
-    width: 38px;
-    height: 38px;
-
-    font-size: 19px;
-
-    color:
-        rgba(255,255,255,.5);
+.more{
+    color:#777;
+    font-size:16px;
 }
 
 
-/* =====================================================
+/* =========================
    LYRICS
-===================================================== */
+========================= */
 
-.lyrics-wrapper {
+.lyrics-box{
+    width:100%;
+    max-width:500px;
 
-    width: 100%;
+    flex:1;
+    min-height:0;
 
-    flex: 1;
+    margin-top:12px;
 
-    min-height: 0;
+    overflow-y:auto;
+    overflow-x:hidden;
 
-    margin-top: 15px;
+    scrollbar-width:none;
 
-    overflow-y: auto;
-    overflow-x: hidden;
+    scroll-behavior:smooth;
 
-    scrollbar-width: none;
-
-    scroll-behavior: smooth;
-
-    position: relative;
-
-    mask-image:
+    -webkit-mask-image:
         linear-gradient(
             to bottom,
-            transparent,
-            black 15%,
-            black 85%,
-            transparent
+            transparent 0%,
+            black 12%,
+            black 88%,
+            transparent 100%
         );
 }
 
-.lyrics-wrapper::-webkit-scrollbar {
-    display: none;
+.lyrics-box::-webkit-scrollbar{
+    display:none;
 }
 
-.lyrics {
-
-    width: 100%;
-
-    padding-top: 45%;
-    padding-bottom: 45%;
-
-    display: flex;
-    flex-direction: column;
+.lyrics{
+    padding-top:80px;
+    padding-bottom:100px;
 }
 
-.line {
+.line{
+    padding:7px 0;
 
-    width: 100%;
+    font-size:14px;
+    line-height:1.35;
 
-    padding: 6px 0;
+    font-weight:600;
 
-    font-size: 18px;
+    color:#292929;
 
-    line-height: 1.4;
-
-    font-weight: 700;
-
-    color:
-        rgba(255,255,255,.22);
-
-    opacity: .42;
-
-    transform-origin: left center;
-
-    transform: scale(.97);
+    opacity:.55;
 
     transition:
-        color .4s ease,
-        opacity .4s ease,
-        transform .4s ease,
-        font-size .4s ease;
+        .35s ease;
+
+    word-wrap:break-word;
 }
 
-.line.active {
+.line.active{
+    color:white;
 
-    color: white;
+    opacity:1;
 
-    opacity: 1;
+    font-size:19px;
 
-    font-size: 24px;
-
-    transform: scale(1);
+    font-weight:700;
 
     text-shadow:
-        0 0 18px
-        rgba(255,255,255,.08);
-}
-
-.line.active + .line {
-    opacity: .58;
-}
-
-.line:has(+ .line.active) {
-    opacity: .58;
+        0 0 18px rgba(255,255,255,.12);
 }
 
 
-/* =====================================================
+/* =========================
    PLAYER
-===================================================== */
+========================= */
 
-.player {
+.player{
+    position:fixed !important;
 
-    position: fixed;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
 
-    left: 0;
-    right: 0;
-    bottom: 0;
+    width:100% !important;
 
-    width: 100%;
-
-    height: 118px;
+    height:112px !important;
 
     padding:
-        8px
-        18px
-        calc(
-            10px +
-            env(safe-area-inset-bottom)
-        );
+        7px 14px
+        calc(7px + env(safe-area-inset-bottom))
+        !important;
 
-    background:
-        rgba(8,8,8,.95);
+    background:rgba(8,8,8,.97);
 
-    backdrop-filter:
-        blur(25px);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
 
-    -webkit-backdrop-filter:
-        blur(25px);
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.08);
+    border-top:1px solid rgba(255,255,255,.08);
 
     box-shadow:
-        0 -15px 40px
-        rgba(0,0,0,.45);
+        0 -15px 35px rgba(0,0,0,.55);
 
-    z-index: 9999;
+    z-index:999999 !important;
+
+    display:block !important;
 }
 
 
-/* =====================================================
+/* =========================
    PLAYER INFO
-===================================================== */
+========================= */
 
-.player-info {
+.player-info{
+    height:20px;
 
-    width: 100%;
-
-    height: 24px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
-.player-title {
-
-    font-size: 12px;
-
-    font-weight: 700;
+.player-name{
+    font-size:11px;
+    font-weight:700;
 }
 
-.player-artist {
-
-    font-size: 10px;
-
-    color:
-        rgba(255,255,255,.4);
+.player-artist{
+    font-size:9px;
+    color:#666;
 }
 
 
-/* =====================================================
-   BUTTON AREA
-===================================================== */
+/* =========================
+   BUTTONS
+========================= */
 
-.buttons {
+.buttons{
+    height:46px;
 
-    width: 100%;
+    display:flex;
 
-    height: 45px;
+    align-items:center;
+    justify-content:center;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    gap:34px;
 
-    gap: 34px;
+    position:relative;
 
-    position: relative;
-
-    z-index: 10000;
+    z-index:1000000;
 }
 
-.buttons button {
+.buttons button{
+    width:34px;
+    height:34px;
 
-    width: 38px;
-    height: 38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background:none;
 
-    color:
-        rgba(255,255,255,.72);
+    border:none;
 
-    font-size: 19px;
+    color:#ddd;
 
-    cursor: pointer;
+    font-size:17px;
 
-    touch-action: manipulation;
+    cursor:pointer;
 
-    position: relative;
-
-    z-index: 10001;
+    flex-shrink:0;
 }
 
-.buttons button:active {
-    transform: scale(.88);
-}
+#play{
+    width:42px !important;
+    height:42px !important;
 
+    border-radius:50%;
 
-/* =====================================================
-   PLAY BUTTON
-===================================================== */
+    background:white;
 
-#play {
+    color:black !important;
 
-    width: 44px !important;
-    height: 44px !important;
+    font-size:12px !important;
 
-    border-radius: 50%;
-
-    background: white;
-
-    color: black !important;
-
-    font-size: 13px !important;
+    font-weight:bold;
 
     box-shadow:
-        0 5px 18px
-        rgba(0,0,0,.45);
+        0 5px 20px rgba(0,0,0,.55);
 
-    display: flex !important;
-
-    align-items: center;
-    justify-content: center;
-
-    flex-shrink: 0;
-
-    position: relative;
-
-    z-index: 10002;
+    z-index:1000001;
 }
 
 
-/* =====================================================
+/* =========================
    PROGRESS
-===================================================== */
+========================= */
 
-.progress-row {
+.progress-row{
+    width:100%;
 
-    width: 100%;
+    height:17px;
 
-    height: 17px;
+    display:flex;
+    align-items:center;
 
-    display: flex;
-    align-items: center;
+    gap:7px;
 
-    gap: 8px;
+    color:#666;
 
-    font-size: 9px;
-
-    color:
-        rgba(255,255,255,.4);
+    font-size:8px;
 }
 
-.progress {
+.progress{
+    position:relative;
 
-    flex: 1;
+    flex:1;
 
-    height: 4px;
+    height:3px;
 
-    background:
-        rgba(255,255,255,.20);
+    background:#333;
 
-    border-radius: 20px;
+    border-radius:20px;
 
-    overflow: hidden;
+    overflow:hidden;
 
-    touch-action: none;
+    cursor:pointer;
 }
 
-.bar {
+.bar{
+    width:0%;
+    height:100%;
 
-    width: 0%;
+    background:white;
 
-    height: 100%;
-
-    background: white;
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 0 8px
-        rgba(255,255,255,.3);
+    border-radius:20px;
 }
 
 
-/* =====================================================
-   SMALL PHONE
-===================================================== */
-
-@media(max-height: 700px) {
-
-    .main {
-        bottom: 110px;
-    }
-
-    .player {
-        height: 110px;
-    }
-
-    .cover {
-        width: 190px;
-    }
-
-    .song-info {
-        margin-top: 9px;
-    }
-
-    .lyrics-wrapper {
-        margin-top: 8px;
-    }
-
-    .line {
-        font-size: 16px;
-        padding: 5px 0;
-    }
-
-    .line.active {
-        font-size: 21px;
-    }
-
-}
-
-
-/* =====================================================
-   VERY SMALL WIDTH
-===================================================== */
-
-@media(max-width: 360px) {
-
-    .cover {
-        width: 175px;
-    }
-
-    .song-title {
-        font-size: 19px;
-    }
-
-    .buttons {
-        gap: 28px;
-    }
-
-}
-
-
-/* =====================================================
+/* =========================
    DESKTOP
-===================================================== */
+========================= */
 
-@media(min-width: 851px) {
+@media(min-width:800px){
 
-    .topbar {
-        height: 65px;
+    .main{
+        top:60px;
+        bottom:95px;
 
-        padding:
-            0 35px;
-    }
+        padding:25px 7%;
 
-    .main {
-
-        position: absolute;
-
-        top: 65px;
-        bottom: 95px;
-
-        padding:
-            20px 6%;
-
-        display: grid;
+        display:grid;
 
         grid-template-columns:
-            minmax(300px, 420px)
+            minmax(300px,420px)
             1fr;
 
-        gap: 90px;
-
-        align-items: center;
+        gap:80px;
     }
 
-    .left {
-        width: 100%;
+    .cover{
+        width:100%;
+        max-width:420px;
     }
 
-    .cover {
-        width: min(400px, 100%);
+    .title{
+        font-size:25px;
     }
 
-    .song-info {
-        margin-top: 20px;
+    .artist{
+        font-size:13px;
     }
 
-    .lyrics-wrapper {
-        width: 100%;
-        height: 100%;
-
-        margin-top: 0;
+    .line{
+        font-size:20px;
+        padding:8px 0;
     }
 
-    .lyrics {
-        padding-top: 40%;
-        padding-bottom: 40%;
+    .line.active{
+        font-size:27px;
     }
 
-    .line {
-        font-size: 20px;
-        padding: 7px 0;
-    }
-
-    .line.active {
-        font-size: 26px;
-    }
-
-    .player {
-
-        height: 95px;
+    .player{
+        height:95px !important;
 
         padding:
-            10px 35px;
+            10px 35px !important;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display:flex !important;
+
+        align-items:center;
+        justify-content:center;
     }
 
-    .player-info {
+    .player-info{
+        position:absolute;
+        left:35px;
 
-        position: absolute;
-
-        left: 35px;
-
-        width: 200px;
-
-        display: block;
+        display:block;
     }
 
-    .player-artist {
-        margin-top: 4px;
+    .player-artist{
+        margin-top:4px;
     }
 
-    .buttons {
-        width: 300px;
+    .buttons{
+        width:300px;
+    }
+}
+
+
+/* =========================
+   HP KECIL
+========================= */
+
+@media(max-height:650px){
+
+    .main{
+        bottom:105px;
     }
 
+    .player{
+        height:105px !important;
+    }
+
+    .cover{
+        width:45vw;
+        min-width:145px;
+    }
+
+    .info{
+        margin-top:8px;
+    }
+
+    .lyrics-box{
+        margin-top:7px;
+    }
+
+    .line{
+        padding:5px 0;
+        font-size:13px;
+    }
+
+    .line.active{
+        font-size:17px;
+    }
 }
 
 </style>
@@ -755,154 +538,99 @@ button {
 
 <body>
 
-
-<!-- BACKGROUND -->
-
-<div class="background"></div>
+<div class="bg"></div>
 
 
-<div class="app">
+<header class="top">
+    <b>HARVEY</b>
+    <span>•</span>
+    <span>Lyrics</span>
+</header>
 
 
-    <!-- TOP -->
+<main class="main">
 
-    <header class="topbar">
-
-        <strong>HARVEY</strong>
-
-        <span class="dot">•</span>
-
-        <span>Lyrics</span>
-
-    </header>
+    <div
+        class="cover"
+        id="cover">
+    </div>
 
 
+    <div class="info">
 
-    <!-- MAIN -->
+        <div>
+            <div class="title">HARVEY</div>
+            <div class="artist">Her's</div>
+        </div>
 
-    <main class="main">
+        <button class="more">•••</button>
+
+    </div>
 
 
-        <!-- COVER -->
+    <div
+        class="lyrics-box"
+        id="lyricsBox">
 
-        <section class="left">
+        <div
+            class="lyrics"
+            id="lyrics">
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- PLAYER -->
+
+<footer class="player">
+
+    <div class="player-info">
+
+        <div class="player-name">
+            HARVEY
+        </div>
+
+        <div class="player-artist">
+            Her's
+        </div>
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button id="previous">⏮</button>
+
+        <button id="play">▶</button>
+
+        <button id="next">⏭</button>
+
+    </div>
+
+
+    <div class="progress-row">
+
+        <span id="current">0:00</span>
+
+        <div
+            class="progress"
+            id="progress">
 
             <div
-                class="cover"
-                id="cover">
-            </div>
-
-
-            <div class="song-info">
-
-                <div>
-
-                    <div class="song-title">
-                        HARVEY
-                    </div>
-
-                    <div class="artist">
-                        Her's
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="more">
-                    •••
-                </button>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- LYRICS -->
-
-        <section
-            class="lyrics-wrapper"
-            id="lyricsWrapper">
-
-            <div
-                class="lyrics"
-                id="lyrics">
-            </div>
-
-        </section>
-
-
-    </main>
-
-
-
-    <!-- PLAYER -->
-
-    <footer class="player">
-
-
-        <div class="player-info">
-
-            <div class="player-title">
-                HARVEY
-            </div>
-
-            <div class="player-artist">
-                Her's
+                class="bar"
+                id="bar">
             </div>
 
         </div>
 
+        <span id="duration">0:00</span>
 
-        <div class="buttons">
+    </div>
 
-            <button id="previous">
-                ⏮
-            </button>
+</footer>
 
-            <button id="play">
-                ▶
-            </button>
-
-            <button id="next">
-                ⏭
-            </button>
-
-        </div>
-
-
-        <div class="progress-row">
-
-            <span id="current">
-                0:00
-            </span>
-
-            <div
-                class="progress"
-                id="progress">
-
-                <div
-                    class="bar"
-                    id="bar">
-                </div>
-
-            </div>
-
-            <span id="duration">
-                0:00
-            </span>
-
-        </div>
-
-
-    </footer>
-
-</div>
-
-
-
-<!-- AUDIO -->
 
 <audio
     id="audio"
@@ -911,15 +639,13 @@ button {
 </audio>
 
 
-
 <script>
 
-/* =====================================================
+/* =========================================
    TIMESTAMP
-===================================================== */
+========================================= */
 
 const timestamps = [
-
     30.96,
     34.95,
     38.06,
@@ -941,7 +667,6 @@ const timestamps = [
     76.42,
     79.83,
     85.06,
-
     111.87,
     113.56,
     116.92,
@@ -951,7 +676,6 @@ const timestamps = [
     130.50,
     133.87,
     138.92,
-
     152.48,
     154.15,
     157.46,
@@ -964,14 +688,13 @@ const timestamps = [
     181.23,
     184.49,
     187.96
-
 ];
 
 
-/* =====================================================
-   LIRIK
-   GANTI TEKS INI SESUKA LU
-===================================================== */
+/* =========================================
+   TEKS
+   EDIT SENDIRI DI SINI
+========================================= */
 
 const texts = [
     "some people think I'm acting worse for wear",
@@ -1018,11 +741,6 @@ const texts = [
     "crazy for you, oh boy"
 ];
 
-
-/* =====================================================
-   ELEMENT
-===================================================== */
-
 const audio =
     document.getElementById("audio");
 
@@ -1041,8 +759,8 @@ const cover =
 const lyrics =
     document.getElementById("lyrics");
 
-const wrapper =
-    document.getElementById("lyricsWrapper");
+const lyricsBox =
+    document.getElementById("lyricsBox");
 
 const progress =
     document.getElementById("progress");
@@ -1057,505 +775,285 @@ const duration =
     document.getElementById("duration");
 
 
-/* =====================================================
+/* =========================================
    CREATE LYRICS
-===================================================== */
+========================================= */
 
-timestamps.forEach(
-    (time, index) => {
+timestamps.forEach((time,index)=>{
 
-        const line =
-            document.createElement("div");
+    const line =
+        document.createElement("div");
 
-        line.className = "line";
+    line.className = "line";
 
-        line.dataset.time = time;
+    line.dataset.time = time;
 
-        line.textContent =
-            texts[index] || "";
+    line.textContent =
+        texts[index] || "";
 
-        lyrics.appendChild(line);
+    lyrics.appendChild(line);
 
-    }
-);
+});
 
 
 const lines =
-    Array.from(
-        document.querySelectorAll(".line")
-    );
+    [...document.querySelectorAll(".line")];
 
 
-/* =====================================================
-   TIME FORMAT
-===================================================== */
+/* =========================================
+   FORMAT TIME
+========================================= */
 
-function formatTime(seconds) {
+function formatTime(time){
 
-    if (!isFinite(seconds)) {
+    if(!isFinite(time))
         return "0:00";
-    }
 
     const min =
-        Math.floor(seconds / 60);
+        Math.floor(time/60);
 
     let sec =
-        Math.floor(seconds % 60);
+        Math.floor(time%60);
 
-    if (sec < 10) {
-        sec = "0" + sec;
+    if(sec < 10)
+        sec = "0"+sec;
+
+    return min+":"+sec;
+}
+
+
+/* =========================================
+   PLAY / PAUSE
+========================================= */
+
+play.onclick = async ()=>{
+
+    if(audio.paused){
+
+        await audio.play();
+
+        play.textContent = "❚❚";
+
+        cover.classList.add("playing");
+
+    }else{
+
+        audio.pause();
+
+        play.textContent = "▶";
+
+        cover.classList.remove("playing");
+
     }
 
-    return min + ":" + sec;
-}
+};
 
 
-/* =====================================================
-   FADE
-===================================================== */
+/* =========================================
+   LYRICS
+========================================= */
 
-let fadeTimer = null;
-
-function fadeIn() {
-
-    clearInterval(fadeTimer);
-
-    audio.volume = 0;
-
-    let value = 0;
-
-    fadeTimer =
-        setInterval(() => {
-
-            value += .06;
-
-            audio.volume =
-                Math.min(value, 1);
-
-            if (value >= 1) {
-
-                clearInterval(
-                    fadeTimer
-                );
-
-            }
-
-        }, 25);
-}
+let active = -1;
 
 
-function fadeOut() {
+function updateLyrics(){
 
-    clearInterval(fadeTimer);
+    let index = -1;
 
-    let value =
-        audio.volume;
+    for(let i=0;i<timestamps.length;i++){
 
-    fadeTimer =
-        setInterval(() => {
-
-            value -= .06;
-
-            audio.volume =
-                Math.max(value, 0);
-
-            if (value <= 0) {
-
-                clearInterval(
-                    fadeTimer
-                );
-
-                audio.pause();
-
-                audio.volume = 1;
-
-            }
-
-        }, 25);
-}
-
-
-/* =====================================================
-   PLAY
-===================================================== */
-
-play.addEventListener(
-    "click",
-    async () => {
-
-        if (audio.paused) {
-
-            try {
-
-                await audio.play();
-
-                fadeIn();
-
-                play.textContent =
-                    "❚❚";
-
-                cover.classList.add(
-                    "playing"
-                );
-
-            }
-
-            catch(error) {
-
-                console.log(
-                    "Audio gagal dimainkan:",
-                    error
-                );
-
-            }
-
-        }
-
-        else {
-
-            fadeOut();
-
-            play.textContent =
-                "▶";
-
-            cover.classList.remove(
-                "playing"
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   ACTIVE LYRIC
-===================================================== */
-
-let activeIndex = -1;
-
-
-function findActive(time) {
-
-    let result = -1;
-
-    for (
-        let i = 0;
-        i < timestamps.length;
-        i++
-    ) {
-
-        if (
-            time >= timestamps[i]
-        ) {
-
-            result = i;
-
-        }
-        else {
-
+        if(
+            audio.currentTime >=
+            timestamps[i]
+        ){
+            index = i;
+        }else{
             break;
-
         }
 
     }
 
-    return result;
-}
 
-
-/* =====================================================
-   CENTER
-===================================================== */
-
-function centerLyric(index) {
-
-    if (index < 0) {
+    if(index === active)
         return;
-    }
 
-    const line =
-        lines[index];
-
-    if (!line) {
-        return;
-    }
+    active = index;
 
 
-    const target =
-        line.offsetTop
-        -
-        wrapper.clientHeight / 2
-        +
-        line.offsetHeight / 2;
-
-
-    wrapper.scrollTo({
-
-        top: Math.max(
-            0,
-            target
-        ),
-
-        behavior: "smooth"
-
+    lines.forEach(line=>{
+        line.classList.remove("active");
     });
 
-}
+
+    if(index >= 0){
+
+        const line =
+            lines[index];
+
+        line.classList.add("active");
 
 
-/* =====================================================
-   UPDATE LYRICS
-===================================================== */
-
-function updateLyrics() {
-
-    const index =
-        findActive(
-            audio.currentTime
-        );
+        const target =
+            line.offsetTop
+            -
+            lyricsBox.clientHeight/2
+            +
+            line.offsetHeight/2;
 
 
-    if (
-        index === activeIndex
-    ) {
+        lyricsBox.scrollTo({
 
-        return;
+            top:target,
 
-    }
-
-
-    activeIndex =
-        index;
-
-
-    lines.forEach(
-        line => {
-
-            line.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-
-    if (index >= 0) {
-
-        lines[index]
-            .classList.add(
-                "active"
-            );
-
-        centerLyric(index);
-
-    }
-
-}
-
-
-/* =====================================================
-   AUDIO TIME
-===================================================== */
-
-audio.addEventListener(
-    "timeupdate",
-    () => {
-
-        if (!audio.duration) {
-            return;
-        }
-
-
-        current.textContent =
-            formatTime(
-                audio.currentTime
-            );
-
-
-        duration.textContent =
-            formatTime(
-                audio.duration
-            );
-
-
-        const percent =
-            (
-                audio.currentTime /
-                audio.duration
-            ) * 100;
-
-
-        bar.style.width =
-            percent + "%";
-
-
-        updateLyrics();
-
-    }
-);
-
-
-/* =====================================================
-   PROGRESS TAP
-===================================================== */
-
-progress.addEventListener(
-    "click",
-    event => {
-
-        if (!audio.duration) {
-            return;
-        }
-
-
-        const rect =
-            progress.getBoundingClientRect();
-
-
-        const percent =
-            (
-                event.clientX -
-                rect.left
-            ) /
-            rect.width;
-
-
-        audio.currentTime =
-            percent *
-            audio.duration;
-
-
-        activeIndex = -1;
-
-        updateLyrics();
-
-    }
-);
-
-
-/* =====================================================
-   PREVIOUS
-===================================================== */
-
-previous.addEventListener(
-    "click",
-    () => {
-
-        audio.currentTime = 0;
-
-        activeIndex = -1;
-
-        wrapper.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
+            behavior:"smooth"
 
         });
 
-        updateLyrics();
-
     }
-);
+
+}
 
 
-/* =====================================================
-   NEXT
-===================================================== */
+/* =========================================
+   AUDIO UPDATE
+========================================= */
 
-next.addEventListener(
-    "click",
-    () => {
+audio.ontimeupdate = ()=>{
 
-        const index =
-            findActive(
-                audio.currentTime
-            );
-
-
-        const nextIndex =
-            index + 1;
-
-
-        if (
-            nextIndex <
-            timestamps.length
-        ) {
-
-            audio.currentTime =
-                timestamps[nextIndex];
-
-            activeIndex = -1;
-
-            updateLyrics();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   METADATA
-===================================================== */
-
-audio.addEventListener(
-    "loadedmetadata",
-    () => {
-
-        duration.textContent =
-            formatTime(
-                audio.duration
-            );
-
-    }
-);
-
-
-/* =====================================================
-   END
-===================================================== */
-
-audio.addEventListener(
-    "ended",
-    () => {
-
-        play.textContent =
-            "▶";
-
-        cover.classList.remove(
-            "playing"
+    current.textContent =
+        formatTime(
+            audio.currentTime
         );
 
-        audio.volume = 1;
+    duration.textContent =
+        formatTime(
+            audio.duration
+        );
 
-        activeIndex = -1;
+
+    if(audio.duration){
+
+        bar.style.width =
+            (
+                audio.currentTime /
+                audio.duration *
+                100
+            )+"%";
 
     }
-);
 
 
-/* =====================================================
-   SPACEBAR
-===================================================== */
+    updateLyrics();
 
-document.addEventListener(
-    "keydown",
-    event => {
+};
 
-        if (
-            event.code === "Space"
-        ) {
 
-            event.preventDefault();
+/* =========================================
+   PROGRESS
+========================================= */
 
-            play.click();
+progress.onclick = e=>{
 
+    if(!audio.duration)
+        return;
+
+    const rect =
+        progress.getBoundingClientRect();
+
+    const percent =
+        (e.clientX-rect.left) /
+        rect.width;
+
+    audio.currentTime =
+        percent *
+        audio.duration;
+
+    active = -1;
+
+    updateLyrics();
+
+};
+
+
+/* =========================================
+   PREVIOUS
+========================================= */
+
+previous.onclick = ()=>{
+
+    audio.currentTime = 0;
+
+    active = -1;
+
+    lyricsBox.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+};
+
+
+/* =========================================
+   NEXT
+========================================= */
+
+next.onclick = ()=>{
+
+    let index = -1;
+
+    for(let i=0;i<timestamps.length;i++){
+
+        if(
+            audio.currentTime >=
+            timestamps[i]
+        ){
+            index=i;
         }
 
     }
-);
+
+    if(index+1 < timestamps.length){
+
+        audio.currentTime =
+            timestamps[index+1];
+
+        active=-1;
+
+    }
+
+};
+
+
+/* =========================================
+   END
+========================================= */
+
+audio.onended = ()=>{
+
+    play.textContent="▶";
+
+    cover.classList.remove("playing");
+
+    active=-1;
+
+};
+
+
+/* =========================================
+   SPACE
+========================================= */
+
+document.onkeydown = e=>{
+
+    if(e.code==="Space"){
+
+        e.preventDefault();
+
+        play.click();
+
+    }
+
+};
 
 </script>
 
