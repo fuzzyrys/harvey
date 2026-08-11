@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport"
       content="width=device-width,
                initial-scale=1.0,
@@ -28,7 +28,6 @@ html,
 body {
     width: 100%;
     height: 100%;
-
     overflow: hidden;
 
     background: #050505;
@@ -41,7 +40,11 @@ body {
 }
 
 button {
+    border: 0;
+    outline: 0;
     font-family: inherit;
+    background: none;
+    color: white;
 }
 
 
@@ -52,7 +55,10 @@ button {
 .background {
     position: fixed;
 
-    inset: -80px;
+    top: -70px;
+    left: -70px;
+    right: -70px;
+    bottom: -70px;
 
     background:
         url("cover.jpg")
@@ -65,63 +71,17 @@ button {
 
     opacity: .30;
 
-    z-index: -3;
-
-    animation:
-        ambientMove
-        18s
-        ease-in-out
-        infinite
-        alternate;
+    z-index: 0;
 }
 
-.overlay {
-    position: fixed;
+.background::after {
+    content: "";
 
+    position: absolute;
     inset: 0;
 
     background:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.78),
-            rgba(0,0,0,.52),
-            rgba(0,0,0,.92)
-        );
-
-    z-index: -2;
-}
-
-.vignette {
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        radial-gradient(
-            ellipse at center,
-            transparent 25%,
-            rgba(0,0,0,.65) 100%
-        );
-
-    z-index: -1;
-
-    pointer-events: none;
-}
-
-@keyframes ambientMove {
-
-    from {
-        transform:
-            scale(1.15)
-            translate3d(0,0,0);
-    }
-
-    to {
-        transform:
-            scale(1.20)
-            translate3d(-15px,8px,0);
-    }
-
+        rgba(0,0,0,.45);
 }
 
 
@@ -130,21 +90,26 @@ button {
 ===================================================== */
 
 .app {
+    position: relative;
+
     width: 100%;
     height: 100dvh;
 
-    display: flex;
-    flex-direction: column;
-
-    position: relative;
+    z-index: 2;
 }
 
 
 /* =====================================================
-   MOBILE TOP BAR
+   TOP
 ===================================================== */
 
 .topbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
     height: 58px;
 
     padding:
@@ -156,18 +121,23 @@ button {
     display: flex;
     align-items: center;
 
-    flex-shrink: 0;
+    z-index: 50;
 
-    font-size: 13px;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.55),
+            transparent
+        );
 
     color:
-        rgba(255,255,255,.55);
+        rgba(255,255,255,.5);
+
+    font-size: 13px;
 }
 
 .topbar strong {
     color: white;
-
-    font-size: 14px;
 
     letter-spacing: 1px;
 }
@@ -181,26 +151,35 @@ button {
 
 
 /* =====================================================
-   MAIN MOBILE
+   MAIN
 ===================================================== */
 
 .main {
-    flex: 1;
 
-    min-height: 0;
+    position: absolute;
+
+    top: 58px;
+    left: 0;
+    right: 0;
+
+    /*
+       player = 118px
+    */
+
+    bottom: 118px;
 
     width: 100%;
 
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
     padding:
-        10px
+        12px
         18px
         0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow: hidden;
 }
 
 
@@ -209,23 +188,19 @@ button {
 ===================================================== */
 
 .left {
+
     width: 100%;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
 
     flex-shrink: 0;
 }
 
 .cover {
-    width:
-        min(
-            72vw,
-            300px
-        );
+
+    width: min(70vw, 290px);
 
     aspect-ratio: 1 / 1;
 
@@ -234,26 +209,26 @@ button {
         center / cover
         no-repeat;
 
-    border-radius: 3px;
+    border-radius: 4px;
 
     box-shadow:
         0 25px 65px
-        rgba(0,0,0,.72);
+        rgba(0,0,0,.75);
 
     transition:
-        transform .5s ease,
-        box-shadow .5s ease;
+        transform .45s ease,
+        box-shadow .45s ease;
 }
 
 .cover.playing {
-    transform:
-        scale(1.012);
+
+    transform: scale(1.015);
 
     box-shadow:
-        0 28px 75px
-        rgba(0,0,0,.82),
-        0 0 55px
-        rgba(255,255,255,.035);
+        0 30px 75px
+        rgba(0,0,0,.85),
+        0 0 60px
+        rgba(255,255,255,.04);
 }
 
 
@@ -262,71 +237,53 @@ button {
 ===================================================== */
 
 .song-info {
+
     width: 100%;
 
-    margin-top: 16px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
-    padding: 0 2px;
-}
-
-.song-text {
-    min-width: 0;
+    margin-top: 15px;
 }
 
 .song-title {
+
     font-size: 21px;
 
     font-weight: 750;
 
     letter-spacing: .3px;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
 }
 
 .artist {
+
     margin-top: 4px;
 
     font-size: 13px;
 
     color:
-        rgba(255,255,255,.52);
+        rgba(255,255,255,.48);
 }
 
-
-/* kecil bulat di samping info */
-
 .more {
-    width: 35px;
-    height: 35px;
 
-    border: none;
+    width: 38px;
+    height: 38px;
 
-    background: transparent;
+    font-size: 19px;
 
     color:
-        rgba(255,255,255,.55);
-
-    font-size: 21px;
-
-    flex-shrink: 0;
+        rgba(255,255,255,.5);
 }
 
 
 /* =====================================================
-   LYRICS MOBILE
+   LYRICS
 ===================================================== */
 
 .lyrics-wrapper {
+
     width: 100%;
 
     flex: 1;
@@ -347,10 +304,10 @@ button {
     mask-image:
         linear-gradient(
             to bottom,
-            transparent 0%,
-            black 13%,
-            black 87%,
-            transparent 100%
+            transparent,
+            black 15%,
+            black 85%,
+            transparent
         );
 }
 
@@ -359,100 +316,86 @@ button {
 }
 
 .lyrics {
+
     width: 100%;
+
+    padding-top: 45%;
+    padding-bottom: 45%;
 
     display: flex;
-
     flex-direction: column;
-
-    align-items: flex-start;
-
-    padding-top: 42%;
-
-    padding-bottom: 45%;
 }
 
-
-/* =====================================================
-   LYRIC LINE
-===================================================== */
-
 .line {
+
     width: 100%;
 
-    padding: 7px 0;
+    padding: 6px 0;
 
-    font-size: 19px;
+    font-size: 18px;
 
-    line-height: 1.38;
+    line-height: 1.4;
 
     font-weight: 700;
 
     color:
-        rgba(255,255,255,.23);
+        rgba(255,255,255,.22);
 
-    opacity: .48;
+    opacity: .42;
 
     transform-origin: left center;
 
-    transform:
-        scale(.97);
+    transform: scale(.97);
 
     transition:
         color .4s ease,
         opacity .4s ease,
         transform .4s ease,
-        font-size .4s ease,
-        filter .4s ease;
+        font-size .4s ease;
 }
 
-
-/* =====================================================
-   ACTIVE
-===================================================== */
-
 .line.active {
+
     color: white;
 
     opacity: 1;
 
-    font-size: 25px;
+    font-size: 24px;
 
-    transform:
-        scale(1);
+    transform: scale(1);
 
-    filter:
-        drop-shadow(
-            0 0 13px
-            rgba(255,255,255,.10)
-        );
+    text-shadow:
+        0 0 18px
+        rgba(255,255,255,.08);
 }
 
-
-/* =====================================================
-   NEIGHBORS
-===================================================== */
-
 .line.active + .line {
-    opacity: .60;
+    opacity: .58;
 }
 
 .line:has(+ .line.active) {
-    opacity: .60;
+    opacity: .58;
 }
 
 
 /* =====================================================
-   MOBILE PLAYER
+   PLAYER
 ===================================================== */
 
 .player {
+
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
     width: 100%;
 
-    flex-shrink: 0;
+    height: 118px;
 
     padding:
-        10px
+        8px
         18px
         calc(
             10px +
@@ -460,7 +403,7 @@ button {
         );
 
     background:
-        rgba(8,8,8,.90);
+        rgba(8,8,8,.95);
 
     backdrop-filter:
         blur(25px);
@@ -470,113 +413,127 @@ button {
 
     border-top:
         1px solid
-        rgba(255,255,255,.07);
+        rgba(255,255,255,.08);
 
     box-shadow:
-        0 -10px 35px
-        rgba(0,0,0,.35);
+        0 -15px 40px
+        rgba(0,0,0,.45);
+
+    z-index: 9999;
 }
 
 
 /* =====================================================
-   PLAYER TOP
+   PLAYER INFO
 ===================================================== */
 
-.player-top {
+.player-info {
+
+    width: 100%;
+
+    height: 24px;
+
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
-    margin-bottom: 8px;
-}
-
-.player-song {
-    min-width: 0;
 }
 
 .player-title {
+
     font-size: 12px;
 
     font-weight: 700;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
 }
 
 .player-artist {
-    margin-top: 2px;
 
     font-size: 10px;
 
     color:
-        rgba(255,255,255,.42);
+        rgba(255,255,255,.4);
 }
 
 
 /* =====================================================
-   PLAYER BUTTONS
+   BUTTON AREA
 ===================================================== */
 
 .buttons {
+
+    width: 100%;
+
+    height: 45px;
+
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    gap: 28px;
+    gap: 34px;
 
-    height: 43px;
+    position: relative;
+
+    z-index: 10000;
 }
 
-button {
-    border: none;
+.buttons button {
 
-    outline: none;
+    width: 38px;
+    height: 38px;
 
-    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     color:
-        rgba(255,255,255,.65);
+        rgba(255,255,255,.72);
+
+    font-size: 19px;
 
     cursor: pointer;
 
-    transition:
-        transform .15s ease,
-        color .15s ease;
+    touch-action: manipulation;
+
+    position: relative;
+
+    z-index: 10001;
 }
 
-button:active {
+.buttons button:active {
     transform: scale(.88);
 }
 
+
+/* =====================================================
+   PLAY BUTTON
+===================================================== */
+
 #play {
-    width: 42px;
-    height: 42px;
+
+    width: 44px !important;
+    height: 44px !important;
 
     border-radius: 50%;
 
     background: white;
 
-    color: black;
+    color: black !important;
 
-    font-size: 13px;
+    font-size: 13px !important;
 
-    display: flex;
+    box-shadow:
+        0 5px 18px
+        rgba(0,0,0,.45);
+
+    display: flex !important;
 
     align-items: center;
-
     justify-content: center;
-}
 
-#previous,
-#next {
-    font-size: 19px;
+    flex-shrink: 0;
+
+    position: relative;
+
+    z-index: 10002;
 }
 
 
@@ -585,10 +542,12 @@ button:active {
 ===================================================== */
 
 .progress-row {
+
     width: 100%;
 
-    display: flex;
+    height: 17px;
 
+    display: flex;
     align-items: center;
 
     gap: 8px;
@@ -596,34 +555,38 @@ button:active {
     font-size: 9px;
 
     color:
-        rgba(255,255,255,.42);
+        rgba(255,255,255,.4);
 }
 
 .progress {
+
     flex: 1;
 
     height: 4px;
 
-    border-radius: 20px;
-
     background:
         rgba(255,255,255,.20);
 
+    border-radius: 20px;
+
     overflow: hidden;
+
+    touch-action: none;
 }
 
 .bar {
+
     width: 0%;
 
     height: 100%;
 
-    border-radius: 20px;
-
     background: white;
 
+    border-radius: 20px;
+
     box-shadow:
-        0 0 7px
-        rgba(255,255,255,.35);
+        0 0 8px
+        rgba(255,255,255,.3);
 }
 
 
@@ -633,12 +596,12 @@ button:active {
 
 @media(max-height: 700px) {
 
-    .topbar {
-        height: 48px;
+    .main {
+        bottom: 110px;
     }
 
-    .main {
-        padding-top: 5px;
+    .player {
+        height: 110px;
     }
 
     .cover {
@@ -646,7 +609,7 @@ button:active {
     }
 
     .song-info {
-        margin-top: 10px;
+        margin-top: 9px;
     }
 
     .lyrics-wrapper {
@@ -654,20 +617,19 @@ button:active {
     }
 
     .line {
+        font-size: 16px;
         padding: 5px 0;
-
-        font-size: 17px;
     }
 
     .line.active {
-        font-size: 22px;
+        font-size: 21px;
     }
 
 }
 
 
 /* =====================================================
-   VERY SMALL PHONE
+   VERY SMALL WIDTH
 ===================================================== */
 
 @media(max-width: 360px) {
@@ -680,16 +642,109 @@ button:active {
         font-size: 19px;
     }
 
+    .buttons {
+        gap: 28px;
+    }
+
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width: 851px) {
+
+    .topbar {
+        height: 65px;
+
+        padding:
+            0 35px;
+    }
+
+    .main {
+
+        position: absolute;
+
+        top: 65px;
+        bottom: 95px;
+
+        padding:
+            20px 6%;
+
+        display: grid;
+
+        grid-template-columns:
+            minmax(300px, 420px)
+            1fr;
+
+        gap: 90px;
+
+        align-items: center;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    .cover {
+        width: min(400px, 100%);
+    }
+
+    .song-info {
+        margin-top: 20px;
+    }
+
+    .lyrics-wrapper {
+        width: 100%;
+        height: 100%;
+
+        margin-top: 0;
+    }
+
+    .lyrics {
+        padding-top: 40%;
+        padding-bottom: 40%;
+    }
+
     .line {
-        font-size: 17px;
+        font-size: 20px;
+        padding: 7px 0;
     }
 
     .line.active {
-        font-size: 21px;
+        font-size: 26px;
+    }
+
+    .player {
+
+        height: 95px;
+
+        padding:
+            10px 35px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .player-info {
+
+        position: absolute;
+
+        left: 35px;
+
+        width: 200px;
+
+        display: block;
+    }
+
+    .player-artist {
+        margin-top: 4px;
     }
 
     .buttons {
-        gap: 24px;
+        width: 300px;
     }
 
 }
@@ -701,17 +756,15 @@ button:active {
 <body>
 
 
+<!-- BACKGROUND -->
+
 <div class="background"></div>
-<div class="overlay"></div>
-<div class="vignette"></div>
 
 
 <div class="app">
 
 
-    <!-- =================================================
-         TOP
-    ================================================== -->
+    <!-- TOP -->
 
     <header class="topbar">
 
@@ -725,14 +778,12 @@ button:active {
 
 
 
-    <!-- =================================================
-         MAIN
-    ================================================== -->
+    <!-- MAIN -->
 
     <main class="main">
 
 
-        <!-- COVER + INFO -->
+        <!-- COVER -->
 
         <section class="left">
 
@@ -744,7 +795,7 @@ button:active {
 
             <div class="song-info">
 
-                <div class="song-text">
+                <div>
 
                     <div class="song-title">
                         HARVEY
@@ -757,7 +808,8 @@ button:active {
                 </div>
 
 
-                <button class="more">
+                <button
+                    class="more">
                     •••
                 </button>
 
@@ -767,9 +819,7 @@ button:active {
 
 
 
-        <!-- =================================================
-             LYRICS
-        ================================================== -->
+        <!-- LYRICS -->
 
         <section
             class="lyrics-wrapper"
@@ -787,25 +837,19 @@ button:active {
 
 
 
-    <!-- =================================================
-         MOBILE PLAYER
-    ================================================== -->
+    <!-- PLAYER -->
 
     <footer class="player">
 
 
-        <div class="player-top">
+        <div class="player-info">
 
-            <div class="player-song">
+            <div class="player-title">
+                HARVEY
+            </div>
 
-                <div class="player-title">
-                    HARVEY
-                </div>
-
-                <div class="player-artist">
-                    Her's
-                </div>
-
+            <div class="player-artist">
+                Her's
             </div>
 
         </div>
@@ -854,7 +898,6 @@ button:active {
 
     </footer>
 
-
 </div>
 
 
@@ -863,7 +906,8 @@ button:active {
 
 <audio
     id="audio"
-    src="harvey.mp3">
+    src="harvey.mp3"
+    preload="metadata">
 </audio>
 
 
@@ -925,7 +969,8 @@ const timestamps = [
 
 
 /* =====================================================
-   TEKS LIRIK
+   LIRIK
+   GANTI TEKS INI SESUKA LU
 ===================================================== */
 
 const texts = [
@@ -973,6 +1018,7 @@ const texts = [
     "crazy for you, oh boy"
 ];
 
+
 /* =====================================================
    ELEMENT
 ===================================================== */
@@ -980,13 +1026,13 @@ const texts = [
 const audio =
     document.getElementById("audio");
 
-const playButton =
+const play =
     document.getElementById("play");
 
-const previousButton =
+const previous =
     document.getElementById("previous");
 
-const nextButton =
+const next =
     document.getElementById("next");
 
 const cover =
@@ -995,7 +1041,7 @@ const cover =
 const lyrics =
     document.getElementById("lyrics");
 
-const lyricsWrapper =
+const wrapper =
     document.getElementById("lyricsWrapper");
 
 const progress =
@@ -1015,23 +1061,24 @@ const duration =
    CREATE LYRICS
 ===================================================== */
 
-timestamps.forEach((time, index) => {
+timestamps.forEach(
+    (time, index) => {
 
-    const line =
-        document.createElement("div");
+        const line =
+            document.createElement("div");
 
-    line.className =
-        "line";
+        line.className = "line";
 
-    line.dataset.time =
-        time;
+        line.dataset.time = time;
 
-    line.textContent =
-        texts[index] || "";
+        line.textContent =
+            texts[index] || "";
 
-    lyrics.appendChild(line);
+        lyrics.appendChild(line);
 
-});
+    }
+);
+
 
 const lines =
     Array.from(
@@ -1040,7 +1087,7 @@ const lines =
 
 
 /* =====================================================
-   FORMAT TIME
+   TIME FORMAT
 ===================================================== */
 
 function formatTime(seconds) {
@@ -1049,28 +1096,25 @@ function formatTime(seconds) {
         return "0:00";
     }
 
-    const minutes =
+    const min =
         Math.floor(seconds / 60);
 
-    let secs =
+    let sec =
         Math.floor(seconds % 60);
 
-    if (secs < 10) {
-        secs = "0" + secs;
+    if (sec < 10) {
+        sec = "0" + sec;
     }
 
-    return minutes + ":" + secs;
+    return min + ":" + sec;
 }
 
 
 /* =====================================================
-   AUDIO FADE
+   FADE
 ===================================================== */
 
 let fadeTimer = null;
-
-const fadeDuration = 450;
-
 
 function fadeIn() {
 
@@ -1078,22 +1122,17 @@ function fadeIn() {
 
     audio.volume = 0;
 
-    let step = 0;
-
-    const steps = 18;
+    let value = 0;
 
     fadeTimer =
         setInterval(() => {
 
-            step++;
+            value += .06;
 
             audio.volume =
-                Math.min(
-                    step / steps,
-                    1
-                );
+                Math.min(value, 1);
 
-            if (step >= steps) {
+            if (value >= 1) {
 
                 clearInterval(
                     fadeTimer
@@ -1101,7 +1140,7 @@ function fadeIn() {
 
             }
 
-        }, fadeDuration / steps);
+        }, 25);
 }
 
 
@@ -1109,26 +1148,18 @@ function fadeOut() {
 
     clearInterval(fadeTimer);
 
-    const startVolume =
+    let value =
         audio.volume;
-
-    let step = 0;
-
-    const steps = 18;
 
     fadeTimer =
         setInterval(() => {
 
-            step++;
+            value -= .06;
 
             audio.volume =
-                Math.max(
-                    startVolume *
-                    (1 - step / steps),
-                    0
-                );
+                Math.max(value, 0);
 
-            if (step >= steps) {
+            if (value <= 0) {
 
                 clearInterval(
                     fadeTimer
@@ -1140,36 +1171,51 @@ function fadeOut() {
 
             }
 
-        }, fadeDuration / steps);
+        }, 25);
 }
 
 
 /* =====================================================
-   PLAY / PAUSE
+   PLAY
 ===================================================== */
 
-playButton.addEventListener(
+play.addEventListener(
     "click",
-    () => {
+    async () => {
 
         if (audio.paused) {
 
-            audio.play();
+            try {
 
-            fadeIn();
+                await audio.play();
 
-            playButton.textContent =
-                "❚❚";
+                fadeIn();
 
-            cover.classList.add(
-                "playing"
-            );
+                play.textContent =
+                    "❚❚";
 
-        } else {
+                cover.classList.add(
+                    "playing"
+                );
+
+            }
+
+            catch(error) {
+
+                console.log(
+                    "Audio gagal dimainkan:",
+                    error
+                );
+
+            }
+
+        }
+
+        else {
 
             fadeOut();
 
-            playButton.textContent =
+            play.textContent =
                 "▶";
 
             cover.classList.remove(
@@ -1183,12 +1229,15 @@ playButton.addEventListener(
 
 
 /* =====================================================
-   ACTIVE INDEX
+   ACTIVE LYRIC
 ===================================================== */
 
-function getActiveIndex(time) {
+let activeIndex = -1;
 
-    let index = -1;
+
+function findActive(time) {
+
+    let result = -1;
 
     for (
         let i = 0;
@@ -1200,9 +1249,10 @@ function getActiveIndex(time) {
             time >= timestamps[i]
         ) {
 
-            index = i;
+            result = i;
 
-        } else {
+        }
+        else {
 
             break;
 
@@ -1210,58 +1260,42 @@ function getActiveIndex(time) {
 
     }
 
-    return index;
+    return result;
 }
 
 
-let lastActiveIndex = -1;
-
-
 /* =====================================================
-   CENTER LYRIC
+   CENTER
 ===================================================== */
 
-function centerLine(index) {
+function centerLyric(index) {
 
     if (index < 0) {
         return;
     }
 
-    const active =
+    const line =
         lines[index];
 
-    if (!active) {
+    if (!line) {
         return;
     }
 
 
     const target =
-        active.offsetTop
+        line.offsetTop
         -
-        lyricsWrapper.clientHeight / 2
+        wrapper.clientHeight / 2
         +
-        active.offsetHeight / 2;
+        line.offsetHeight / 2;
 
 
-    const maxScroll =
-        lyricsWrapper.scrollHeight
-        -
-        lyricsWrapper.clientHeight;
+    wrapper.scrollTo({
 
-
-    const finalPosition =
-        Math.max(
+        top: Math.max(
             0,
-            Math.min(
-                target,
-                maxScroll
-            )
-        );
-
-
-    lyricsWrapper.scrollTo({
-
-        top: finalPosition,
+            target
+        ),
 
         behavior: "smooth"
 
@@ -1277,13 +1311,13 @@ function centerLine(index) {
 function updateLyrics() {
 
     const index =
-        getActiveIndex(
+        findActive(
             audio.currentTime
         );
 
 
     if (
-        index === lastActiveIndex
+        index === activeIndex
     ) {
 
         return;
@@ -1291,25 +1325,29 @@ function updateLyrics() {
     }
 
 
-    lastActiveIndex =
+    activeIndex =
         index;
 
 
-    lines.forEach(line => {
+    lines.forEach(
+        line => {
 
-        line.classList.remove(
-            "active"
-        );
+            line.classList.remove(
+                "active"
+            );
 
-    });
+        }
+    );
 
 
     if (index >= 0) {
 
         lines[index]
-            .classList.add("active");
+            .classList.add(
+                "active"
+            );
 
-        centerLine(index);
+        centerLyric(index);
 
     }
 
@@ -1317,7 +1355,7 @@ function updateLyrics() {
 
 
 /* =====================================================
-   AUDIO UPDATE
+   AUDIO TIME
 ===================================================== */
 
 audio.addEventListener(
@@ -1341,7 +1379,7 @@ audio.addEventListener(
             );
 
 
-        const percentage =
+        const percent =
             (
                 audio.currentTime /
                 audio.duration
@@ -1349,7 +1387,7 @@ audio.addEventListener(
 
 
         bar.style.width =
-            percentage + "%";
+            percent + "%";
 
 
         updateLyrics();
@@ -1375,21 +1413,20 @@ progress.addEventListener(
             progress.getBoundingClientRect();
 
 
-        const percentage =
+        const percent =
             (
                 event.clientX -
                 rect.left
-            )
-            /
+            ) /
             rect.width;
 
 
         audio.currentTime =
-            percentage *
+            percent *
             audio.duration;
 
 
-        lastActiveIndex = -1;
+        activeIndex = -1;
 
         updateLyrics();
 
@@ -1401,15 +1438,15 @@ progress.addEventListener(
    PREVIOUS
 ===================================================== */
 
-previousButton.addEventListener(
+previous.addEventListener(
     "click",
     () => {
 
         audio.currentTime = 0;
 
-        lastActiveIndex = -1;
+        activeIndex = -1;
 
-        lyricsWrapper.scrollTo({
+        wrapper.scrollTo({
 
             top: 0,
 
@@ -1427,12 +1464,12 @@ previousButton.addEventListener(
    NEXT
 ===================================================== */
 
-nextButton.addEventListener(
+next.addEventListener(
     "click",
     () => {
 
         const index =
-            getActiveIndex(
+            findActive(
                 audio.currentTime
             );
 
@@ -1449,34 +1486,11 @@ nextButton.addEventListener(
             audio.currentTime =
                 timestamps[nextIndex];
 
-            lastActiveIndex = -1;
+            activeIndex = -1;
 
             updateLyrics();
 
         }
-
-    }
-);
-
-
-/* =====================================================
-   END
-===================================================== */
-
-audio.addEventListener(
-    "ended",
-    () => {
-
-        playButton.textContent =
-            "▶";
-
-        cover.classList.remove(
-            "playing"
-        );
-
-        audio.volume = 1;
-
-        lastActiveIndex = -1;
 
     }
 );
@@ -1500,6 +1514,29 @@ audio.addEventListener(
 
 
 /* =====================================================
+   END
+===================================================== */
+
+audio.addEventListener(
+    "ended",
+    () => {
+
+        play.textContent =
+            "▶";
+
+        cover.classList.remove(
+            "playing"
+        );
+
+        audio.volume = 1;
+
+        activeIndex = -1;
+
+    }
+);
+
+
+/* =====================================================
    SPACEBAR
 ===================================================== */
 
@@ -1513,7 +1550,7 @@ document.addEventListener(
 
             event.preventDefault();
 
-            playButton.click();
+            play.click();
 
         }
 
