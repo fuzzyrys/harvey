@@ -234,10 +234,6 @@ button{
 
     scroll-behavior:smooth;
 
-    /*
-       Fade bagian atas dan bawah
-    */
-
     mask-image:
         linear-gradient(
             to bottom,
@@ -386,6 +382,7 @@ button{
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
     color:#999;
@@ -426,6 +423,7 @@ button{
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
     font-size:13px;
@@ -551,7 +549,7 @@ and (max-width:1100px){
 
 
 /* =====================================================
-   MOBILE
+   MOBILE (FIXED LAYOUT & RESPONSIVE)
 ===================================================== */
 
 @media(max-width:799px){
@@ -561,37 +559,28 @@ and (max-width:1100px){
         height:100dvh;
     }
 
-
-    /* TOP */
-
     .topbar{
-        height:50px;
+        height:45px;
 
-        padding:0 13px;
+        padding:0 16px;
 
         gap:7px;
     }
 
     .topbar strong{
-        font-size:9px;
+        font-size:11px;
     }
 
     .topbar span{
-        font-size:9px;
+        font-size:10px;
     }
 
-
-    /* MAIN */
-
     .main{
-        top:50px;
+        top:45px;
 
-        bottom:108px;
+        bottom:100px;
 
-        padding:
-            12px
-            14px
-            0;
+        padding:10px 20px 0;
 
         display:flex;
 
@@ -599,11 +588,10 @@ and (max-width:1100px){
 
         align-items:center;
 
+        justify-content:flex-start;
+
         overflow:hidden;
     }
-
-
-    /* LEFT */
 
     .left{
         width:100%;
@@ -615,24 +603,19 @@ and (max-width:1100px){
         align-items:center;
 
         flex-shrink:0;
+
+        margin-bottom:12px;
     }
-
-
-    /* COVER */
 
     .cover{
-        width:58vw;
-        height:58vw;
+        width:150px;
+        height:150px;
 
-        max-width:250px;
-        max-height:250px;
+        min-width:unset;
+        min-height:unset;
 
-        min-width:155px;
-        min-height:155px;
+        box-shadow:0 10px 30px rgba(0,0,0,.5);
     }
-
-
-    /* SONG INFO */
 
     .song-info{
         width:100%;
@@ -641,17 +624,14 @@ and (max-width:1100px){
     }
 
     .song-title{
-        font-size:17px;
+        font-size:16px;
     }
 
     .artist{
-        margin-top:3px;
+        margin-top:2px;
 
-        font-size:10px;
+        font-size:11px;
     }
-
-
-    /* LYRICS BOX */
 
     .lyrics-box{
         width:100%;
@@ -660,57 +640,57 @@ and (max-width:1100px){
 
         min-height:0;
 
-        margin-top:9px;
-
-        /*
-           penting:
-           posisi aktif dihitung
-           berdasarkan viewport lyrics
-        */
+        mask-image:
+            linear-gradient(
+                to bottom,
+                transparent 0%,
+                black 10%,
+                black 90%,
+                transparent 100%
+            );
     }
 
-
-    /* LYRICS */
-
     .lyrics{
-        padding-top:120px;
+        padding-top:40px;
         padding-bottom:120px;
+        text-align:center;
     }
 
     .line{
-        padding:6px 0;
+        padding:8px 0;
 
-        font-size:13px;
+        font-size:14px;
 
-        line-height:1.45;
+        line-height:1.4;
     }
 
     .line.active{
         font-size:17px;
     }
 
-
-    /* PLAYER */
-
     .player{
-        height:108px;
+        height:100px;
 
         padding:
-            7px 14px
+            10px 16px
             calc(
-                7px +
+                8px +
                 env(safe-area-inset-bottom)
             );
+
+        display:flex;
+
+        flex-direction:column;
+
+        justify-content:space-between;
     }
-
-
-    /* PLAYER INFO */
 
     .player-info{
         position:static;
 
         width:100%;
-        height:20px;
+
+        height:auto;
 
         transform:none;
 
@@ -719,20 +699,9 @@ and (max-width:1100px){
         align-items:center;
 
         justify-content:space-between;
+
+        display:none; /* Sembunyikan judul di player karena sudah ada di atas */
     }
-
-    .player-name{
-        font-size:11px;
-    }
-
-    .player-artist{
-        margin-top:0;
-
-        font-size:9px;
-    }
-
-
-    /* CONTROLS */
 
     .controls{
         position:static;
@@ -740,7 +709,8 @@ and (max-width:1100px){
         transform:none;
 
         width:100%;
-        height:50px;
+
+        height:auto;
 
         display:flex;
 
@@ -748,73 +718,16 @@ and (max-width:1100px){
 
         justify-content:center;
 
-        gap:28px;
+        gap:36px;
+
+        margin-top:4px;
     }
 
     .controls button{
-        width:32px;
-        height:32px;
+        width:36px;
+        height:36px;
 
-        font-size:15px;
-    }
-
-
-    /* PLAY MOBILE */
-
-    #play{
-        width:44px;
-        height:44px;
-
-        min-width:44px;
-        min-height:44px;
-
-        font-size:12px;
-    }
-
-
-    /* PROGRESS */
-
-    .progress-row{
-        position:static;
-
-        transform:none;
-
-        width:100%;
-
-        height:17px;
-    }
-}
-
-
-/* =====================================================
-   SMALL PHONE
-===================================================== */
-
-@media(max-width:380px){
-
-    .main{
-        bottom:104px;
-    }
-
-    .player{
-        height:104px;
-    }
-
-    .cover{
-        width:52vw;
-        height:52vw;
-    }
-
-    .line{
-        font-size:12px;
-    }
-
-    .line.active{
-        font-size:16px;
-    }
-
-    .controls{
-        gap:24px;
+        font-size:18px;
     }
 
     #play{
@@ -823,51 +736,48 @@ and (max-width:1100px){
 
         min-width:42px;
         min-height:42px;
+
+        font-size:13px;
+    }
+
+    .progress-row{
+        position:static;
+
+        transform:none;
+
+        width:100%;
+
+        height:auto;
+
+        margin-bottom:4px;
     }
 }
 
 
 /* =====================================================
-   SHORT PHONE
+   VERY SMALL PHONE
 ===================================================== */
 
-@media(max-height:650px)
+@media(max-height:660px)
 and (max-width:799px){
 
-    .main{
-        bottom:102px;
-    }
-
-    .player{
-        height:102px;
-    }
-
     .cover{
-        width:43vw;
-        height:43vw;
-    }
-
-    .song-info{
-        margin-top:7px;
-    }
-
-    .lyrics-box{
-        margin-top:5px;
-    }
-
-    .lyrics{
-        padding-top:100px;
-        padding-bottom:100px;
+        width:110px;
+        height:110px;
     }
 
     .line{
-        padding:4px 0;
+        font-size:13px;
 
-        font-size:12px;
+        padding:6px 0;
     }
 
     .line.active{
-        font-size:16px;
+        font-size:15px;
+    }
+
+    .lyrics{
+        padding-top:20px;
     }
 }
 
@@ -1377,18 +1287,6 @@ function updateLyrics(){
             "active"
         );
 
-
-        /*
-           FIX UTAMA:
-
-           Menggunakan posisi
-           aktual line terhadap
-           lyrics-box.
-
-           Jadi HP nggak
-           nge-scroll aktif
-           sampai hilang.
-        */
 
         const boxRect =
             lyricsBox.getBoundingClientRect();
